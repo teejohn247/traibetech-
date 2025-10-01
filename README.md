@@ -17,7 +17,6 @@ A modern, full-stack Content Management System built with **Remix**, **TypeScrip
 - ✅ **Modern Design**: Beautiful, responsive UI with TraibeTech branding
 - ✅ **Animated Transitions**: Smooth Framer Motion animations
 - ✅ **Mobile Responsive**: Optimized for all screen sizes
-- ✅ **Dark/Light Themes**: Professional green color scheme
 - ✅ **Collapsible Sidebar**: Adaptive navigation for desktop and mobile
 
 ### Technical Features
@@ -139,31 +138,39 @@ The application will be available at [http://localhost:3000](http://localhost:30
 The application uses the following main tables:
 
 ### Articles Table
-```sql
-- id (UUID, Primary Key)
-- title (String)
-- slug (String, Unique)
-- content (Text)
-- category (String, Optional)
-- status (Enum: draft, published)
-- parent_id (UUID, Self-reference, Optional)
-- featured_image (Text, Optional)
-- image_alt (String, Optional)
-- author_id (UUID)
-- published_at (DateTime, Optional)
-- created_at (DateTime)
-- updated_at (DateTime)
+```prisma
+model Article {
+  id            String    @id @default(uuid()) @db.Uuid
+  title         String
+  slug          String    @unique
+  content       String
+  category      String
+  status        String    @default("draft") // "draft" or "published"
+  parentId      String?   @db.Uuid @map("parent_id")
+  parent        Article?  @relation("ArticleHierarchy", fields: [parentId], references: [id])
+  children      Article[] @relation("ArticleHierarchy")
+  createdAt     DateTime  @default(now()) @db.Timestamptz @map("created_at")
+  updatedAt     DateTime  @updatedAt @db.Timestamptz @map("updated_at")
+  publishedAt   DateTime? @db.Timestamptz @map("published_at")
+  authorId      String?   @map("author_id")
+  featuredImage String?   @db.Text @map("featured_image") // Base64 image data
+  imageAlt      String?   @map("image_alt") // Alt text for the image
+}
 ```
 
-### Media Files Table
-```sql
-- id (UUID, Primary Key)
-- name (String)
-- original_name (String)
-- base64 (Text)
-- mime_type (String)
-- size (Integer)
-- created_at (DateTime)
+### Media Files Interface
+```typescript
+interface MediaFile {
+  id: string;
+  name: string;
+  originalName: string;
+  base64: string;
+  mimeType: string;
+  size: number;
+  width?: number;
+  height?: number;
+  createdAt: string;
+}
 ```
 
 ## 🔧 Remix Setup & Architecture
@@ -364,16 +371,5 @@ npm run lint         # Run ESLint (if configured)
 This project is created for educational and demonstration purposes.
 
 ---
-
-## 🎯 Next Steps
-
-- [ ] Add user roles and permissions
-- [ ] Implement article comments system
-- [ ] Add full-text search functionality
-- [ ] Create article templates
-- [ ] Add export/import functionality
-- [ ] Implement article versioning
-- [ ] Add email notifications
-- [ ] Create admin analytics dashboard
 
 Built with ❤️ using Remix, TypeScript, and modern web technologies.
