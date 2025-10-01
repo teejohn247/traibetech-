@@ -1,0 +1,34 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Article {
+  id            String   @id @default(uuid()) @db.Uuid
+  title         String
+  slug          String   @unique
+  content       String
+  category      String
+  status        String   @default("draft") // "draft" or "published"
+  parentId      String?  @db.Uuid @map("parent_id")
+  parent        Article? @relation("ArticleHierarchy", fields: [parentId], references: [id], onDelete: Cascade)
+  children      Article[] @relation("ArticleHierarchy")
+  createdAt     DateTime @default(now()) @db.Timestamptz @map("created_at")
+  updatedAt     DateTime @updatedAt @db.Timestamptz @map("updated_at")
+  publishedAt   DateTime? @db.Timestamptz @map("published_at") // When article was published
+  authorId      String?  @map("author_id")
+  featuredImage String?  @db.Text @map("featured_image") // Base64 image data
+  imageAlt      String?  @map("image_alt") // Alt text for the image
+
+  @@map("articles")
+}

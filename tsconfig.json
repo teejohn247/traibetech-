@@ -14,7 +14,6 @@
     "verbatimModuleSyntax": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "importsNotUsedAsValues": "error"
   },
   "include": ["./src"]
 }

@@ -1,100 +1,88 @@
-import { Routes, Route, Outlet, Link } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { supabase } from "./lib/supabase";
+import {
+  Dashboard,
+  Login,
+  LandingPage,
+  ArticleEditor,
+  ArticleList,
+  ArticleView,
+  Categories,
+  Media
+} from "./pages";
+import { Layout } from "./components";
 
 export default function App() {
+  const [user, setUser] = useState<any | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [showLogin, setShowLogin] = useState(false);
+
+  useEffect(() => {
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
+
+    // Listen for auth changes
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 via-white to-blue-50">
+        <div className="text-lg text-gray-600">Loading...</div>
+      </div>
+    );
+  }
+
+  if (!user && showLogin) {
+    return <Login onBack={() => setShowLogin(false)} />;
+  }
+
+  if (!user) {
+    return <LandingPage onGetStarted={() => setShowLogin(true)} />;
+  }
+
   return (
-    <div>
-      <h1>Basic Example</h1>
-
-      <p>
-        This example demonstrates some of the core features of React Router
-        including nested <code>&lt;Route&gt;</code>s,{" "}
-        <code>&lt;Outlet&gt;</code>s, <code>&lt;Link&gt;</code>s, and using a
-        "*" route (aka "splat route") to render a "not found" page when someone
-        visits an unrecognized URL.
-      </p>
-
-      {/* Routes nest inside one another. Nested route paths build upon
-            parent route paths, and nested route elements render inside
-            parent route elements. See the note about <Outlet> below. */}
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="dashboard" element={<Dashboard />} />
-
-          {/* Using path="*"" means "match anything", so this route
-                acts like a catch-all for URLs that we don't have explicit
-                routes for. */}
-          <Route path="*" element={<NoMatch />} />
-        </Route>
-      </Routes>
-    </div>
+        <div className="min-h-screen bg-gray-50">
+          <Routes>
+            <Route path="/" element={<Layout user={user} />}>
+              <Route index element={<Dashboard />} />
+              <Route path="articles" element={<ArticleList />} />
+              <Route path="articles/new" element={<ArticleEditor />} />
+              <Route path="articles/:id/edit" element={<ArticleEditor />} />
+              <Route path="categories" element={<Categories />} />
+              <Route path="media" element={<Media />} />
+              <Route path="*" element={<NoMatch />} />
+            </Route>
+            <Route path="/articles/:id/view" element={<ArticleView />} />
+          </Routes>
+        </div>
   );
 }
 
-function Layout() {
-  return (
-    <div>
-      {/* A "layout route" is a good place to put markup you want to
-          share across all the pages on your site, like navigation. */}
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
-          <li>
-            <Link to="/nothing-here">Nothing Here</Link>
-          </li>
-        </ul>
-      </nav>
-
-      <hr />
-
-      {/* An <Outlet> renders whatever child route is currently active,
-          so you can think about this <Outlet> as a placeholder for
-          the child routes we defined above. */}
-      <Outlet />
-    </div>
-  );
-}
-
-function Home() {
-  return (
-    <div>
-      <h2>Home</h2>
-    </div>
-  );
-}
-
-function About() {
-  return (
-    <div>
-      <h2>About</h2>
-    </div>
-  );
-}
-
-function Dashboard() {
-  return (
-    <div>
-      <h2>Dashboard</h2>
-    </div>
-  );
-}
 
 function NoMatch() {
   return (
-    <div>
-      <h2>Nothing to see here!</h2>
-      <p>
-        <Link to="/">Go to the home page</Link>
+    <div className="text-center">
+      <h2 className="text-2xl font-bold text-gray-900 mb-4">Page Not Found</h2>
+      <p className="text-gray-600 mb-4">
+        The page you're looking for doesn't exist.
       </p>
+      <Link
+        to="/"
+        className="text-blue-600 hover:text-blue-800 font-medium"
+      >
+        Go to Dashboard
+      </Link>
     </div>
   );
 }
