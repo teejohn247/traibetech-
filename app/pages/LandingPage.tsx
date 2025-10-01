@@ -56,8 +56,7 @@ export default function LandingPage({ onGetStarted }: LandingPageProps) {
   ];
 
   const benefits = [
-    "Intuitive drag-and-drop interface",
-    "Real-time collaborative editing",
+    "Intuitive user interface",
     "Advanced content organization",
     "Mobile-responsive design",
     "SEO optimization built-in",
@@ -97,7 +96,7 @@ export default function LandingPage({ onGetStarted }: LandingPageProps) {
             <div className="hidden md:flex items-center space-x-8">
               <a href="#features" className="text-gray-600 hover:text-gray-900 transition-colors">Features</a>
               <a href="#benefits" className="text-gray-600 hover:text-gray-900 transition-colors">Benefits</a>
-              <a href="#pricing" className="text-gray-600 hover:text-gray-900 transition-colors">Pricing</a>
+              <button onClick={onGetStarted} className="text-gray-600 hover:text-gray-900 transition-colors">Register</button>
               <motion.button
                 onClick={onGetStarted}
                 className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-6 py-2 rounded-full font-medium hover:shadow-lg transition-all duration-300"
@@ -131,7 +130,7 @@ export default function LandingPage({ onGetStarted }: LandingPageProps) {
             <div className="px-4 py-4 space-y-4">
               <a href="#features" className="block text-gray-600 hover:text-gray-900">Features</a>
               <a href="#benefits" className="block text-gray-600 hover:text-gray-900">Benefits</a>
-              <a href="#pricing" className="block text-gray-600 hover:text-gray-900">Pricing</a>
+              <button onClick={onGetStarted} className="block text-gray-600 hover:text-gray-900">Register</button>
               <button
                 onClick={onGetStarted}
                 className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white px-6 py-2 rounded-full font-medium"

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link, useNavigate } from "@remix-run/react";
 import { motion } from "framer-motion";
 import { articleAPI, formatDate, type Article } from "../lib/api";
 import { 

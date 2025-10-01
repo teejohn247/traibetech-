@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
-import { Outlet, Link, useLocation } from "react-router-dom";
+import { Outlet, Link, useLocation } from "@remix-run/react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Home,
   FileText,
   Folder,
   Image,
-  Settings,
   LogOut,
   Menu,
   X,
@@ -83,7 +82,6 @@ export function Layout({ user }: LayoutProps) {
     { path: "/articles", icon: BookOpen, label: "Articles" },
     { path: "/categories", icon: Tag, label: "Categories" },
     { path: "/media", icon: Image, label: "Media Library" },
-    { path: "/settings", icon: Settings, label: "Settings" },
   ];
 
   return (

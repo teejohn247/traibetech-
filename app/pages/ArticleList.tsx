@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@remix-run/react";
 import { motion, AnimatePresence } from "framer-motion";
 import { articleAPI, formatRelativeTime, formatDate, type Article } from "../lib/api";
 import { 
@@ -1282,7 +1282,7 @@ export default function ArticleList() {
           </div>
           
           {/* Expand/Collapse buttons - only show in tree view */}
-          {viewMode === "tree" && (
+          {/* {viewMode === "tree" && (
             <div className="flex rounded-lg shadow-sm">
               <button
                 onClick={expandAll}
@@ -1299,14 +1299,14 @@ export default function ArticleList() {
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>
-          )}
+          )} */}
           
           <motion.div
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
             <div className="flex items-center space-x-2">
-              <div className="flex bg-gray-100 rounded-lg p-1">
+              {/* <div className="flex bg-gray-100 rounded-lg p-1">
                 <button
                   onClick={() => setViewMode("table")}
                   className={`px-3 py-1 text-sm font-medium rounded-md transition-colors ${
@@ -1330,7 +1330,7 @@ export default function ArticleList() {
                 >
                   Tree
                 </button>
-              </div>
+              </div> */}
             <Link
               to="/articles/new"
                 className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg font-medium hover:shadow-lg transition-all duration-200"

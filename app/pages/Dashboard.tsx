@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@remix-run/react";
 import { motion } from "framer-motion";
 import { articleAPI, formatRelativeTime, type Article } from "../lib/api";
 import { Plus, TrendingUp, FileText, Folder, Clock, Calendar, User, Eye, Edit } from "lucide-react";

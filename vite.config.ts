@@ -1,34 +1,29 @@
-import * as path from "path";
+import { vitePlugin as remix } from "@remix-run/dev";
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import rollupReplace from "@rollup/plugin-replace";
+import path from "path";
 
-// https://vitejs.dev/config/
 export default defineConfig({
+  plugins: [
+    remix({
+      future: {
+        v3_fetcherPersist: true,
+        v3_relativeSplatPath: true,
+        v3_throwAbortReason: true,
+        v3_singleFetch: true,
+        v3_lazyRouteDiscovery: true,
+      },
+    }),
+  ],
+  resolve: {
+    alias: {
+      "~": path.resolve(__dirname, "./app"),
+    },
+  },
+  define: {
+    global: "globalThis",
+    "process.env": "import.meta.env",
+  },
   server: {
     port: 3000,
   },
-  plugins: [
-    rollupReplace({
-      preventAssignment: true,
-      values: {
-        "process.env.NODE_ENV": JSON.stringify("development"),
-      },
-    }),
-    react(),
-  ],
-  resolve: process.env.USE_SOURCE
-    ? {
-        alias: {
-          "react-router": path.resolve(
-            __dirname,
-            "../../packages/react-router/index.ts",
-          ),
-          "react-router-dom": path.resolve(
-            __dirname,
-            "../../packages/react-router-dom/index.tsx",
-          ),
-        },
-      }
-    : {},
 });

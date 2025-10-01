@@ -1,8 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
-import { useNavigate, useParams } from "react-router-dom";
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import { useNavigate, useParams } from "@remix-run/react";
+import { ClientOnlyReactQuill } from "~/components";
 import { 
   Eye, 
   Save, 
@@ -516,7 +515,7 @@ export default function ArticleEditor() {
                           </div>
                 ) : (
                   <div className="flex-1 flex flex-col">
-                        <ReactQuill
+                        <ClientOnlyReactQuill
                           theme="snow"
                           value={article.content}
                           onChange={(content) => handleInputChange("content", content)}
@@ -759,38 +758,11 @@ export default function ArticleEditor() {
                     />
         </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Open Graph Title
-                    </label>
-                    <input
-                      type="text"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                      placeholder="Title for social media sharing"
-                    />
-            </div>
+               
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Open Graph Description
-                    </label>
-                    <textarea
-                      rows={3}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                      placeholder="Description for social media sharing"
-                    />
-            </div>
+             
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Canonical URL
-                    </label>
-                    <input
-                      type="url"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                      placeholder="https://example.com/canonical-url"
-                    />
-                </div>
+                
                   
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">

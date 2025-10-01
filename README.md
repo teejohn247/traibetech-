@@ -1,147 +1,379 @@
-# CMS - Content Management System
+# TraibeTech CMS - Content Management System
 
-A modern, full-stack Content Management System built with React Router, TypeScript, Prisma, and Supabase.
+A modern, full-stack Content Management System built with **Remix**, **TypeScript**, **Prisma**, and **Supabase**. Features a beautiful interface with tree/table views, rich text editing, and hierarchical content organization.
 
-## Features
+## 🚀 Features
 
-- ✅ **Article Management**: CRUD operations for articles
-- ✅ **Rich Text Editor**: Markdown support with live preview
-- ✅ **Tree Structure**: Hierarchical organization with parent-child relationships
-- ✅ **Table & Tree Views**: Multiple ways to manage content
+### Content Management
+- ✅ **Article Management**: Full CRUD operations for articles with hierarchical structure
+- ✅ **Rich Text Editor**: Quill-based editor with live preview mode
+- ✅ **Tree & Table Views**: Switch between hierarchical tree view and detailed table view
+- ✅ **Categories**: Organize articles into categories with filtering
+- ✅ **Media Library**: Upload and manage images with base64 storage
+- ✅ **Draft/Published States**: Manage article publishing workflow
+- ✅ **Parent-Child Relationships**: Nested article structure for complex content organization
+
+### User Interface
+- ✅ **Modern Design**: Beautiful, responsive UI with TraibeTech branding
+- ✅ **Animated Transitions**: Smooth Framer Motion animations
+- ✅ **Mobile Responsive**: Optimized for all screen sizes
+- ✅ **Dark/Light Themes**: Professional green color scheme
+- ✅ **Collapsible Sidebar**: Adaptive navigation for desktop and mobile
+
+### Technical Features
 - ✅ **Authentication**: Secure login/signup with Supabase Auth
-- ✅ **Modern UI**: Responsive design with Tailwind CSS
-- ✅ **TypeScript**: Full type safety
-- ✅ **Database**: PostgreSQL with Prisma ORM
+- ✅ **Server-Side Rendering**: Remix for optimal performance and SEO
+- ✅ **TypeScript**: Full type safety throughout the application
+- ✅ **Database**: PostgreSQL with Prisma ORM and migrations
+- ✅ **File-based Routing**: Remix's powerful routing system
 
-## Tech Stack
+## 📱 Application Pages
+
+### Public Pages
+- **Landing Page** (`/`) - Marketing page with features and call-to-action
+- **Article View** (`/articles/:id/view`) - Public article display with sidebar
+
+### Dashboard Pages (Authentication Required)
+- **Dashboard** (`/dashboard`) - Overview with statistics and recent articles
+- **Articles** (`/articles`) - Article management with tree/table views
+  - **New Article** (`/articles/new`) - Create new articles
+  - **Edit Article** (`/articles/:id/edit`) - Edit existing articles
+- **Categories** (`/categories`) - Manage article categories
+- **Media Library** (`/media`) - Upload and manage media files
+
+### Views & Features
+
+#### Article List Views
+1. **Table View** 📊
+   - Sortable columns (Title, Category, Status, Date)
+   - Bulk actions (Publish/Unpublish)
+   - Status filtering (All, Published, Draft)
+   - Responsive mobile cards
+   - Pagination support
+
+2. **Tree View** 🌳
+   - Hierarchical display of categories and articles
+   - Collapsible/expandable nodes
+   - Parent-child relationship visualization
+   - Quick article loading into editor
+   - Category grouping
+
+#### Article Editor Features
+- **Rich Text Editing**: Quill.js with full formatting toolbar
+- **Live Preview**: Toggle between edit and preview modes
+- **Metadata Management**: Title, slug, category, parent selection
+- **Image Upload**: Featured images with alt text
+- **SEO Fields**: Meta descriptions, keywords, Open Graph data
+- **Article Settings**: Comments, featured status, notifications
+
+## 🛠 Tech Stack
 
 ### Frontend
-- **React Router** - Routing and server-side rendering
-- **TypeScript** - Type safety
-- **Tailwind CSS** - Styling
-- **Vite** - Build tool
+- **Remix** - Full-stack React framework with SSR
+- **React 18** - UI library with modern hooks
+- **TypeScript** - Type safety and developer experience
+- **Tailwind CSS** - Utility-first CSS framework
+- **Framer Motion** - Smooth animations and transitions
+- **Lucide React** - Beautiful icon library
+- **React Quill** - Rich text editor component
 
-### Backend/Database
-- **Prisma** - Database ORM and migrations
-- **PostgreSQL** - Database (Supabase recommended)
+### Backend & Database
+- **Prisma** - Type-safe database ORM with migrations
+- **PostgreSQL** - Robust relational database
 - **Supabase** - Authentication and database hosting
+- **Server-Side Rendering** - Remix handles SSR automatically
 
-## Quick Start
+### Development Tools
+- **Vite** - Fast build tool and dev server
+- **PostCSS** - CSS processing with Tailwind
+- **ESLint & TypeScript** - Code quality and type checking
 
-1. **Clone and install dependencies:**
-   ```bash
-   npm install
-   ```
+## 🚀 Quick Start
 
-2. **Set up environment variables:**
-   Create a `.env` file in the root directory:
-   ```env
-   # Database
-   DATABASE_URL="postgresql://username:password@localhost:5432/cms_db?schema=public"
-   
-   # Supabase (get these from your Supabase project)
-   VITE_SUPABASE_URL="https://your-project.supabase.co"
-   VITE_SUPABASE_ANON_KEY="your-anon-key"
-   ```
-
-3. **Set up the database:**
-   ```bash
-   # Generate Prisma client
-   npx prisma generate
-   
-   # Run database migrations
-   npx prisma migrate dev --name init
-   ```
-
-4. **Start the development server:**
-   ```bash
-   npm run dev
-   ```
-
-The application will be available at [localhost:5173](http://localhost:5173).
-
-## Database Setup
-
-### Option 1: Supabase (Recommended)
-
-1. Create a new project at [supabase.com](https://supabase.com)
-2. Go to Settings > Database and copy the connection string
-3. Update your `.env` file with the Supabase connection details
-4. Run `npx prisma migrate dev` to create tables
-
-### Option 2: Local PostgreSQL
-
-1. Install PostgreSQL locally
-2. Create a database named `cms_db`
-3. Update the `DATABASE_URL` in `.env` with your local credentials
-4. Run `npx prisma migrate dev` to create tables
-
-## Authentication Setup
-
-1. In your Supabase project, go to Authentication > Settings
-2. Configure your site URL and any additional providers
-3. The app uses email/password authentication by default
-
-## Project Structure
-
+### 1. Clone and Install
+```bash
+git clone <repository-url>
+cd FULL-STACK-ROLE
+npm install
 ```
-src/
-├── components/          # React components
-│   ├── ArticleEditor.tsx   # Rich text editor with preview
-│   ├── ArticleList.tsx     # Table and tree views
-│   ├── Dashboard.tsx       # Main dashboard
-│   └── Login.tsx           # Authentication
+
+### 2. Environment Setup
+Create a `.env` file in the root directory:
+
+```env
+# Database Connection
+DATABASE_URL="postgresql://username:password@host:port/database?schema=public"
+
+# Supabase Configuration
+VITE_SUPABASE_URL="https://your-project-id.supabase.co"
+VITE_SUPABASE_ANON_KEY="your-anonymous-key"
+```
+
+#### Environment Variables Explained:
+- `DATABASE_URL`: PostgreSQL connection string (from Supabase or local)
+- `VITE_SUPABASE_URL`: Your Supabase project URL
+- `VITE_SUPABASE_ANON_KEY`: Public API key from Supabase
+
+### 3. Database Setup & Migration
+
+```bash
+# Generate Prisma client
+npx prisma generate
+
+# Run database migrations (creates all tables)
+npx prisma migrate dev --name init
+
+# Optional: Open Prisma Studio to view data
+npx prisma studio
+```
+
+### 4. Start Development Server
+```bash
+npm run dev
+```
+
+The application will be available at [http://localhost:3000](http://localhost:3000).
+
+## 🗄 Database Schema
+
+The application uses the following main tables:
+
+### Articles Table
+```sql
+- id (UUID, Primary Key)
+- title (String)
+- slug (String, Unique)
+- content (Text)
+- category (String, Optional)
+- status (Enum: draft, published)
+- parent_id (UUID, Self-reference, Optional)
+- featured_image (Text, Optional)
+- image_alt (String, Optional)
+- author_id (UUID)
+- published_at (DateTime, Optional)
+- created_at (DateTime)
+- updated_at (DateTime)
+```
+
+### Media Files Table
+```sql
+- id (UUID, Primary Key)
+- name (String)
+- original_name (String)
+- base64 (Text)
+- mime_type (String)
+- size (Integer)
+- created_at (DateTime)
+```
+
+## 🔧 Remix Setup & Architecture
+
+### File-based Routing
+```
+app/routes/
+├── _index.tsx                    # Root redirect to dashboard
+├── _app.tsx                      # Main layout with authentication
+├── _app.dashboard._index.tsx     # Dashboard page
+├── _app.articles._index.tsx      # Articles list page
+├── _app.articles.new.tsx         # New article page
+├── _app.articles.$id.edit.tsx    # Edit article page
+├── _app.categories._index.tsx    # Categories page
+├── _app.media._index.tsx         # Media library page
+└── articles.$id.view.tsx         # Public article view
+```
+
+### Project Structure
+```
+app/
+├── components/           # Reusable React components
+│   ├── Layout.tsx           # Main navigation layout
+│   ├── ImageUpload.tsx      # File upload component
+│   ├── ClientOnlyReactQuill.tsx  # SSR-safe Quill wrapper
+│   └── index.ts            # Component exports
+├── pages/               # Page components
+│   ├── Dashboard.tsx        # Dashboard with stats
+│   ├── ArticleList.tsx      # Tree/table views
+│   ├── ArticleEditor.tsx    # Article creation/editing
+│   ├── ArticleView.tsx      # Public article display
+│   ├── Categories.tsx       # Category management
+│   ├── Media.tsx           # Media library
+│   ├── Login.tsx           # Authentication
+│   ├── LandingPage.tsx     # Marketing page
+│   └── index.ts            # Page exports
 ├── lib/                 # Utility libraries
-│   ├── prisma.ts          # Prisma client
-│   └── supabase.ts        # Supabase client
-├── App.tsx             # Main application component
-├── main.tsx            # Application entry point
-└── index.css           # Global styles with Tailwind
+│   ├── api.ts              # Article CRUD operations
+│   ├── media.ts            # Media file handling
+│   ├── prisma.ts           # Database client
+│   └── supabase.ts         # Auth client
+├── routes/              # Remix route handlers
+├── root.tsx             # Root document component
+└── index.css            # Global styles
 ```
 
-## Available Scripts
+## 🔐 Supabase Setup
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run serve` - Serve production build
-- `npx prisma studio` - Open Prisma Studio (database GUI)
-- `npx prisma migrate dev` - Run database migrations
+### 1. Create Supabase Project
+1. Go to [supabase.com](https://supabase.com) and create an account
+2. Create a new project
+3. Wait for the database to be provisioned
 
-## Deployment
+### 2. Get Connection Details
+1. Go to **Settings** → **Database**
+2. Copy the connection string and update `DATABASE_URL` in `.env`
+3. Go to **Settings** → **API**
+4. Copy the project URL and anon key for your `.env` file
 
-### Vercel (Recommended)
+### 3. Configure Authentication
+1. Go to **Authentication** → **Settings**
+2. Set your site URL (e.g., `http://localhost:3000` for development)
+3. Configure email templates if needed
+4. The app uses email/password authentication by default
 
-1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Add environment variables in Vercel dashboard
-4. Deploy automatically on every push
+## 📊 Database Migrations with Prisma
+
+### Initial Setup
+```bash
+# Install Prisma CLI (if not already installed)
+npm install prisma --save-dev
+
+# Initialize Prisma (already done in this project)
+npx prisma init
+```
+
+### Running Migrations
+```bash
+# Create and apply a new migration
+npx prisma migrate dev --name descriptive-name
+
+# Apply migrations in production
+npx prisma migrate deploy
+
+# Reset database (development only)
+npx prisma migrate reset
+```
+
+### Common Migration Commands
+```bash
+# Generate Prisma client after schema changes
+npx prisma generate
+
+# View database in browser
+npx prisma studio
+
+# Check migration status
+npx prisma migrate status
+
+# Create migration without applying
+npx prisma migrate dev --create-only
+```
+
+## 🚀 Deployment
+
+### Vercel Deployment (Recommended)
+
+1. **Prepare for deployment:**
+   ```bash
+   npm run build
+   ```
+
+2. **Deploy to Vercel:**
+   ```bash
+   # Install Vercel CLI
+   npm i -g vercel
+   
+   # Deploy
+   vercel --prod
+   ```
+
+3. **Set environment variables in Vercel:**
+   - Go to your project dashboard
+   - Add all environment variables from your `.env` file
+   - Redeploy after adding variables
 
 ### Environment Variables for Production
-
-Make sure to set these in your deployment platform:
-
 ```env
 DATABASE_URL="your-production-database-url"
 VITE_SUPABASE_URL="your-supabase-url"
 VITE_SUPABASE_ANON_KEY="your-supabase-anon-key"
 ```
 
-## Development Notes
+## 🔧 Available Scripts
 
-- The app uses a hierarchical article structure where articles can have parent-child relationships
-- Markdown is supported in the content editor with live preview
-- The tree view allows easy navigation of nested content
-- Authentication is required for all CMS operations
-- All data is stored in PostgreSQL via Prisma ORM
+```bash
+# Development
+npm run dev          # Start Remix dev server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run typecheck    # Run TypeScript checks
 
-## Contributing
+# Database
+npx prisma generate  # Generate Prisma client
+npx prisma studio    # Open database GUI
+npx prisma migrate dev # Run migrations (development)
+npx prisma migrate deploy # Apply migrations (production)
+
+# Utilities
+npm run lint         # Run ESLint (if configured)
+```
+
+## 🎨 Customization
+
+### Branding
+- Logo and branding are in `app/components/Layout.tsx` and `app/pages/LandingPage.tsx`
+- Color scheme is green/emerald (TraibeTech branding)
+- Update colors in `app/index.css` and component files
+
+### Features
+- Add new pages by creating routes in `app/routes/`
+- Extend the database schema in `prisma/schema.prisma`
+- Add new components in `app/components/`
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+1. **Database Connection Errors**
+   - Verify `DATABASE_URL` is correct
+   - Ensure database is running and accessible
+   - Check firewall settings for remote databases
+
+2. **Authentication Issues**
+   - Verify Supabase URL and keys are correct
+   - Check site URL configuration in Supabase
+   - Ensure email/password auth is enabled
+
+3. **Build Errors**
+   - Run `npx prisma generate` after schema changes
+   - Clear node_modules and reinstall if needed
+   - Check TypeScript errors with `npm run typecheck`
+
+4. **SSR Issues with React Quill**
+   - The app uses `ClientOnlyReactQuill` component to prevent SSR errors
+   - Quill editor only loads on the client side
+
+## 📝 Contributing
 
 1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit changes: `git commit -m 'Add amazing feature'`
+4. Push to branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
 
-## License
+## 📄 License
 
-This project is created for educational/demonstration purposes.
+This project is created for educational and demonstration purposes.
+
+---
+
+## 🎯 Next Steps
+
+- [ ] Add user roles and permissions
+- [ ] Implement article comments system
+- [ ] Add full-text search functionality
+- [ ] Create article templates
+- [ ] Add export/import functionality
+- [ ] Implement article versioning
+- [ ] Add email notifications
+- [ ] Create admin analytics dashboard
+
+Built with ❤️ using Remix, TypeScript, and modern web technologies.
